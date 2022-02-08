@@ -1,6 +1,6 @@
 ﻿namespace OMS.Domain.Aggregates.OrderAggregate
 {
-    enum OrderStatus
+    public enum OrderStatus
     {
         ReadyToBeFulfilled,
         PaymentProceesed,

@@ -11,5 +11,11 @@ namespace OMS.API.Controllers
         {
             return Ok();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> PlaceOrder()
+        {
+
+        }
     }
 }

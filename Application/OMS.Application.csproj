@@ -17,8 +17,4 @@
 	  <ProjectReference Include="..\Domain\OMS.Domain.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="UseCases\Order\" />
-	</ItemGroup>
-
 </Project>

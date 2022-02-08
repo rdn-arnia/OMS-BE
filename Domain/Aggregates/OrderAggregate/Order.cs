@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace OMS.Domain.Aggregates.OrderAggregate
 {
-    internal class Order : Entity, IAggregateRoot
+    public class Order : Entity, IAggregateRoot
     {
         private List<OrderLine> _orderLines;
 
@@ -13,10 +13,9 @@ namespace OMS.Domain.Aggregates.OrderAggregate
             _orderLines = new List<OrderLine>();
         }
 
-        public Order(string customerId, List<OrderLine> orderLines)
+        public Order(string customerId)
             : this()
         {
-            _orderLines = orderLines;
             CustomerId = customerId;
 
             OrderId = Guid.NewGuid().ToString("n");
@@ -27,6 +26,11 @@ namespace OMS.Domain.Aggregates.OrderAggregate
         public string CustomerId { get; private set; }
         public IReadOnlyList<OrderLine> OrderLines { get => _orderLines; }
         public OrderStatus OrderStatus { get; private set; }
+
+        public void AddOrderLine(string productId, int quantity, double price)
+        {
+            _orderLines.Add(new OrderLine(productId, quantity, price));
+        }
 
         public void ProcessPayment()
         {

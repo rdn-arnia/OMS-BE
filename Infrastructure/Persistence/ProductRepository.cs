@@ -5,6 +5,7 @@ using OMS.Domain.Aggregates.ProductAggregate;
 using OMS.Infrastructure.Options;
 using OMS.Infrastructure.Persistence.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -30,13 +31,25 @@ namespace OMS.Infrastructure.Persistence
                 return null;
             }
 
-            var productResult = productResults.First();
+            return MapProduct(productResults.First());
+        }
 
+        public async Task<List<Product>> GetAllProducts()
+        {
+            var productResults = await productTableClient.QueryAsync<TableStorageProductDto>().ToListAsync();
+
+            return productResults
+                .Select(MapProduct)
+                .ToList();
+        }
+
+        private Product MapProduct(TableStorageProductDto tableStorageProductDto)
+        {
             var product = (Product)Activator.CreateInstance(typeof(Product), true);
-            product.GetType().GetProperty(nameof(Product.ProductId)).SetValue(product, productResult.RowKey);
-            product.GetType().GetProperty(nameof(Product.Title)).SetValue(product, productResult.Title);
-            product.GetType().GetProperty(nameof(Product.Description)).SetValue(product, productResult.Description);
-            product.GetType().GetProperty(nameof(Product.CurrentStock)).SetValue(product, productResult.CurrentStock);
+            product.GetType().GetProperty(nameof(Product.ProductId)).SetValue(product, tableStorageProductDto.RowKey);
+            product.GetType().GetProperty(nameof(Product.Title)).SetValue(product, tableStorageProductDto.Title);
+            product.GetType().GetProperty(nameof(Product.Description)).SetValue(product, tableStorageProductDto.Description);
+            product.GetType().GetProperty(nameof(Product.CurrentStock)).SetValue(product, tableStorageProductDto.CurrentStock);
 
             return product;
         }
