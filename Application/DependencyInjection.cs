@@ -1,10 +1,10 @@
-﻿using Application.Common.Behaviours;
-using FluentValidation;
+﻿using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using OMS.Application.Common.Behaviours;
 using System.Reflection;
 
-namespace Application
+namespace OMS.Application
 {
     public static class DependencyInjection
     {

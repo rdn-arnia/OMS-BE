@@ -1,4 +1,4 @@
-﻿namespace Domain.Aggregates.OrderAggregate
+﻿namespace OMS.Domain.Aggregates.OrderAggregate
 {
     enum OrderStatus
     {

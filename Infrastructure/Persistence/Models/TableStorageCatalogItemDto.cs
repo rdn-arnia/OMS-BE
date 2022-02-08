@@ -2,7 +2,7 @@
 using Azure.Data.Tables;
 using System;
 
-namespace Infrastructure.Persistence.Models
+namespace OMS.Infrastructure.Persistence.Models
 {
     public class TableStorageCatalogItemDto : ITableEntity
     {

@@ -1,14 +1,14 @@
-﻿using Application.Common.Interfaces;
-using Azure.Data.Tables;
-using Domain.Aggregates.ProductAggregate;
-using Infrastructure.Options;
-using Infrastructure.Persistence.Models;
+﻿using Azure.Data.Tables;
 using Microsoft.Extensions.Options;
+using OMS.Application.Common.Interfaces;
+using OMS.Domain.Aggregates.ProductAggregate;
+using OMS.Infrastructure.Options;
+using OMS.Infrastructure.Persistence.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Persistence
+namespace OMS.Infrastructure.Persistence
 {
     class ProductRepository : IProductRepository
     {

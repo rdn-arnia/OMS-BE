@@ -1,10 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using OMS.Domain.Aggregates.CatalogAggregate;
+using System.Threading.Tasks;
 
-namespace Application.Common.Interfaces
+namespace OMS.Application.Common.Interfaces
 {
     public interface ICatalogRepository
     {
-        Task<Domain.Aggregates.CatalogAggregate.Catalog> GetCurrentCatalogAsync();
-        Task<Domain.Aggregates.CatalogAggregate.Catalog> GetCurrentCatalogWithoutCatalogItemsAsync();
+        Task<Catalog> GetCurrentCatalogAsync();
+        Task<Catalog> GetCurrentCatalogWithoutCatalogItemsAsync();
     }
 }

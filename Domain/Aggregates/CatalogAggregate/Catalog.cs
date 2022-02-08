@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Domain.Aggregates.CatalogAggregate
+namespace OMS.Domain.Aggregates.CatalogAggregate
 {
     public class Catalog : Entity, IAggregateRoot
     {

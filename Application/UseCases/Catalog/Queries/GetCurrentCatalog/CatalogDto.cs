@@ -1,4 +1,4 @@
-﻿namespace Application.UseCases.Catalog.Queries.GetCurrentCatalog
+﻿namespace OMS.Application.UseCases.Catalog.Queries.GetCurrentCatalog
 {
     public class CatalogDto
     {

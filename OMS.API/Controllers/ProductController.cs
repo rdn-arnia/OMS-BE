@@ -1,6 +1,6 @@
-﻿using Application.UseCases.Product.Queries.GetProductById;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using OMS.Application.UseCases.Product.Queries.GetProductById;
 
 namespace OMS.API.Controllers
 {

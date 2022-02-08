@@ -1,14 +1,14 @@
-﻿using Application.Common.Interfaces;
-using Azure.Data.Tables;
-using Domain.Aggregates.CatalogAggregate;
-using Infrastructure.Options;
-using Infrastructure.Persistence.Models;
+﻿using Azure.Data.Tables;
+using OMS.Application.Common.Interfaces;
+using OMS.Domain.Aggregates.CatalogAggregate;
+using OMS.Infrastructure.Options;
+using OMS.Infrastructure.Persistence.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Persistence
+namespace OMS.Infrastructure.Persistence
 {
     class CatalogRepository : ICatalogRepository
     {

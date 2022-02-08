@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using ValidationException = Application.Common.Exceptions.ValidationException;
+using ValidationException = OMS.Application.Common.Exceptions.ValidationException;
 
-namespace Application.Common.Behaviours
+namespace OMS.Application.Common.Behaviours
 {
     public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
          where TRequest : IRequest<TResponse>

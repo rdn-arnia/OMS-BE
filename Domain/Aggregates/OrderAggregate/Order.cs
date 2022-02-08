@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Domain.Aggregates.OrderAggregate
+namespace OMS.Domain.Aggregates.OrderAggregate
 {
     internal class Order : Entity, IAggregateRoot
     {

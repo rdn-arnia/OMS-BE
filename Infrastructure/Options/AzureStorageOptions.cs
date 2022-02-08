@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Options
+﻿namespace OMS.Infrastructure.Options
 {
     class AzureStorageOptions
     {

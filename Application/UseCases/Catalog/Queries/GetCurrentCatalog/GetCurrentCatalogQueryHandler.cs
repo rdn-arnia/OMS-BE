@@ -1,10 +1,10 @@
-﻿using Application.Common.Exceptions;
-using Application.Common.Interfaces;
-using MediatR;
+﻿using MediatR;
+using OMS.Application.Common.Exceptions;
+using OMS.Application.Common.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Application.UseCases.Catalog.Queries.GetCurrentCatalog
+namespace OMS.Application.UseCases.Catalog.Queries.GetCurrentCatalog
 {
     class GetCurrentCatalogQueryHandler : IRequestHandler<GetCurrentCatalogQuery, CatalogDto>
     {

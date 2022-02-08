@@ -1,7 +1,7 @@
 ﻿using BuildingBlocks;
 using System;
 
-namespace Domain.Aggregates.OrderAggregate
+namespace OMS.Domain.Aggregates.OrderAggregate
 {
     internal class OrderLine : Entity
     {

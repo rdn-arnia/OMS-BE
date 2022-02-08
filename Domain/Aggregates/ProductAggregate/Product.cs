@@ -1,7 +1,7 @@
 ﻿using BuildingBlocks;
 using System;
 
-namespace Domain.Aggregates.ProductAggregate
+namespace OMS.Domain.Aggregates.ProductAggregate
 {
     public class Product : Entity, IAggregateRoot
     {

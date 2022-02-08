@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System.Collections.Generic;
 
-namespace Application.UseCases.CatalogItem.Queries.GetCatalogItems
+namespace OMS.Application.UseCases.CatalogItem.Queries.GetCatalogItems
 {
     public class GetCatalogItemsQuery : IRequest<List<CatalogItemDto>>
     {

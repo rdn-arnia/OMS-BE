@@ -1,6 +1,6 @@
-﻿using Application.UseCases.Catalog.Queries.GetCurrentCatalog;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using OMS.Application.UseCases.Catalog.Queries.GetCurrentCatalog;
 
 namespace OMS.API.Controllers
 {

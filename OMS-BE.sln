@@ -19,11 +19,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{D32FEEB8-139
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMS.API", "OMS.API\OMS.API.csproj", "{3B04F279-EFDA-4827-9156-C4024B24D4E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{7DCFAA85-9C25-4C8E-BF46-85DE9FFBD932}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMS.Application", "Application\OMS.Application.csproj", "{7DCFAA85-9C25-4C8E-BF46-85DE9FFBD932}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{1291D693-47C8-4D92-94AA-9627D1506EF8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMS.Domain", "Domain\OMS.Domain.csproj", "{1291D693-47C8-4D92-94AA-9627D1506EF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{3ABFCD5A-FE4B-4BF5-9D48-BC074346FB99}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMS.Infrastructure", "Infrastructure\OMS.Infrastructure.csproj", "{3ABFCD5A-FE4B-4BF5-9D48-BC074346FB99}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

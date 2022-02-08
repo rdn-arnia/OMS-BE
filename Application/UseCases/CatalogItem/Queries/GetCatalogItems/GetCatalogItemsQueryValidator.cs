@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Application.UseCases.CatalogItem.Queries.GetCatalogItems
+namespace OMS.Application.UseCases.CatalogItem.Queries.GetCatalogItems
 {
     class GetCatalogItemsQueryValidator : AbstractValidator<GetCatalogItemsQuery>
     {

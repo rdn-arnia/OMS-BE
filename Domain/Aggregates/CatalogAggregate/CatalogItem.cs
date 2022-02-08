@@ -1,7 +1,7 @@
 ﻿using BuildingBlocks;
 using System;
 
-namespace Domain.Aggregates.CatalogAggregate
+namespace OMS.Domain.Aggregates.CatalogAggregate
 {
     public class CatalogItem : Entity
     {

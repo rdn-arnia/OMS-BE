@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Application.UseCases.Product.Queries.GetProductById
+namespace OMS.Application.UseCases.Product.Queries.GetProductById
 {
     public class GetProductByIdQuery : IRequest<ProductDto>
     {

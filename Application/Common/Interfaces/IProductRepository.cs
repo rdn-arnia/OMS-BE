@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Application.Common.Interfaces
+namespace OMS.Application.Common.Interfaces
 {
     public interface IProductRepository
     {

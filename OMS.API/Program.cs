@@ -1,7 +1,7 @@
-using Application;
-using Infrastructure;
 using Microsoft.Extensions.Azure;
 using OMS.API.Filters;
+using OMS.Application;
+using OMS.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
