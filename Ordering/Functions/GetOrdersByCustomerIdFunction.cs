@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
-namespace Ordering
+namespace Ordering.Functions
 {
-    public static class OrderingFunctions
+    public static class GetOrdersByCustomerIdFunction
     {
-        [FunctionName("Function1")]
+        [FunctionName("GetOrdersByCustomerIdFunction")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
