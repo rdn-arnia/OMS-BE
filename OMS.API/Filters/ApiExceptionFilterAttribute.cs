@@ -13,6 +13,7 @@ namespace OMS.API.Filters
             // Register known exception types and handlers.
             exceptionHandlers = new Dictionary<Type, Action<ExceptionContext>>
             {
+                { typeof(ValidationException), HandleValidationException },
                 { typeof(NotFoundException), HandleNotFoundException }
             };
         }
@@ -34,6 +35,20 @@ namespace OMS.API.Filters
             }
 
             HandleUnknownException(context);
+        }
+
+        private void HandleValidationException(ExceptionContext context)
+        {
+            var exception = (ValidationException)context.Exception;
+
+            var details = new ValidationProblemDetails(exception.Errors)
+            {
+                Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1"
+            };
+
+            context.Result = new BadRequestObjectResult(details);
+
+            context.ExceptionHandled = true;
         }
 
         private void HandleNotFoundException(ExceptionContext context)
