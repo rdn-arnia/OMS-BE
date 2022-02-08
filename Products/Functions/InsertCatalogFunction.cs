@@ -22,8 +22,8 @@ namespace ProductCatalog.Functions
         {
             log.LogInformation("Running InsertCatalog");
 
-            var tableClient = new TableClient(Environment.GetEnvironmentVariable("AzureWebJobsStorage"), TableStorageConstants.Products);
-            var results = tableClient.QueryAsync<TableStorageProductDto>();
+            var productTableClient = new TableClient(Environment.GetEnvironmentVariable(EnvironmentVariableConstants.AzureWebJobsStorage), TableStorageConstants.Products);
+            var results = productTableClient.QueryAsync<TableStorageProductDto>();
 
             var productEntities = new List<TableStorageProductDto>();
             await foreach (var entity in results)
@@ -40,19 +40,19 @@ namespace ProductCatalog.Functions
                 PartitionKey = "1"
             };
 
-            var catalogTableClient = new TableClient(Environment.GetEnvironmentVariable("AzureWebJobsStorage"), TableStorageConstants.Catalogs);
+            var catalogTableClient = new TableClient(Environment.GetEnvironmentVariable(EnvironmentVariableConstants.AzureWebJobsStorage), TableStorageConstants.Catalogs);
             await catalogTableClient.CreateIfNotExistsAsync();
             var response = await catalogTableClient.AddEntityAsync(catalog);
 
             var catalogItems = productEntities.Select(p => new TableStorageCatalogItemDto()
             {
-                PartitionKey = "1",
+                PartitionKey = catalog.RowKey,
                 RowKey = Guid.NewGuid().ToString("n"),
                 ProductId = p.RowKey,
                 Price = random.Next(1, 100)
             }).ToList();
 
-            var catalogItemsTableClient = new TableClient(Environment.GetEnvironmentVariable("AzureWebJobsStorage"), TableStorageConstants.CatalogItems);
+            var catalogItemsTableClient = new TableClient(Environment.GetEnvironmentVariable(EnvironmentVariableConstants.AzureWebJobsStorage), TableStorageConstants.CatalogItems);
             await catalogItemsTableClient.CreateIfNotExistsAsync();
             foreach (var catalogItem in catalogItems)
             {

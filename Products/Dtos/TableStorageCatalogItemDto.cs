@@ -11,8 +11,7 @@ namespace ProductCatalog.Dtos
         public DateTimeOffset? Timestamp { get; set; }
         public ETag ETag { get; set; }
 
-        public string CatalogId { get; set; }
         public string ProductId { get; set; }
-        public decimal Price { get; set; }
+        public double Price { get; set; }
     }
 }
