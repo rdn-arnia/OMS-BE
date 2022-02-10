@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using OMS.Application.UseCases.Order.Commands.CreateOrder;
 
 namespace OMS.API.Controllers
 {
@@ -6,16 +8,19 @@ namespace OMS.API.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        private readonly IMediator mediator;
+
+        public OrdersController(IMediator mediator)
         {
-            return Ok();
+            this.mediator = mediator;
         }
 
         [HttpPost]
-        public async Task<IActionResult> PlaceOrder()
+        public async Task<IActionResult> PlaceOrder(CreateOrderCommand createOrderCommand)
         {
+            await mediator.Send(createOrderCommand);
 
+            return Ok();
         }
     }
 }

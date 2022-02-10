@@ -1,5 +1,4 @@
 ﻿using Azure.Data.Tables;
-using Microsoft.Extensions.Options;
 using OMS.Application.Common.Interfaces;
 using OMS.Domain.Aggregates.ProductAggregate;
 using OMS.Infrastructure.Options;

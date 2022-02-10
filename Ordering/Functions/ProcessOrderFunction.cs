@@ -1,31 +1,30 @@
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
-using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Ordering.Domain;
+using Ordering.Events;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Ordering.Functions
 {
-    public static class CreateOrderFunction
+    public static class ProcessOrderFunction
     {
-        [FunctionName("CreateOrderFunction")]
+        [FunctionName("ProcessOrderFunction")]
         public static async Task<List<string>> RunOrchestrator(
-            [OrchestrationTrigger] IDurableOrchestrationContext context,
-            OrderModel orderModel)
+            [OrchestrationTrigger] IDurableOrchestrationContext context)
         {
+            var orderModel = context.GetInput<OrderModel>();
+
             var outputs = new List<string>();
 
-            outputs.Add(await context.CallActivityAsync<string>("CreateOrderFunction_ProcessPayment", orderModel));
-            outputs.Add(await context.CallActivityAsync<string>("CreateOrderFunction_SendOrder", orderModel));
+            outputs.Add(await context.CallActivityAsync<string>("ProcessOrderFunction_ProcessPayment", orderModel));
+            outputs.Add(await context.CallActivityAsync<string>("ProcessOrderFunction_SendOrder", orderModel));
 
             return outputs;
         }
 
-        [FunctionName("CreateOrderFunction_ProcessPayment")]
+        [FunctionName("ProcessOrderFunction_ProcessPayment")]
         public static string ProcessPayment([ActivityTrigger] OrderModel orderModel, ILogger log)
         {
             Order order = null;
@@ -35,7 +34,7 @@ namespace Ordering.Functions
             return $"Done";
         }
 
-        [FunctionName("CreateOrderFunction_SendOrder")]
+        [FunctionName("ProcessOrderFunction_SendOrder")]
         public static string SendOrder([ActivityTrigger] OrderModel orderModel, ILogger log)
         {
             Order order = null;
@@ -45,25 +44,29 @@ namespace Ordering.Functions
             return $"Done";
         }
 
-        [FunctionName("CreateOrderFunction_HttpStart")]
-        public static async Task<HttpResponseMessage> HttpStart(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequestMessage req,
+        [FunctionName("ProcessOrderFunction_QueueStart")]
+        public static async Task QueueStart(
+            [ServiceBusTrigger("order-created", Connection = "ServiceBusConnection")] OrderCreatedEvent order,
             [DurableClient] IDurableOrchestrationClient starter,
             ILogger log)
         {
-            string requestBody = await req.Content.ReadAsStringAsync();
-            var orderModel = JsonConvert.DeserializeObject<OrderModel>(requestBody);
+            //TODO: retrieve order from table storage
+            var orderModel = new OrderModel
+            {
+                OrderId = order.OrderId,
+                CustomerId = order.CustomerId,
+                OrderItems = new List<OrderItemModel>()
+            };
 
-            string instanceId = await starter.StartNewAsync("CreateOrderFunction", orderModel);
+            string instanceId = await starter.StartNewAsync("ProcessOrderFunction", orderModel);
 
             log.LogInformation($"Started orchestration with ID = '{instanceId}'.");
-
-            return starter.CreateCheckStatusResponse(req, instanceId);
         }
     }
 
     public class OrderModel
     {
+        public string OrderId { get; set; }
         public string CustomerId { get; set; }
         public List<OrderItemModel> OrderItems { get; set; }
     }

@@ -1,4 +1,6 @@
 ﻿using MediatR;
+using OMS.Application.Common.EventBus;
+using OMS.Application.Common.EventBus.Events;
 using OMS.Application.Common.Interfaces;
 using System;
 using System.Linq;
@@ -12,12 +14,17 @@ namespace OMS.Application.UseCases.Order.Commands.CreateOrder
         private readonly IOrderRepository orderRepository;
         private readonly IProductRepository productRepository;
         private readonly ICatalogRepository catalogRepository;
+        private readonly IEventBus eventBus;
 
-        public CreateOrderCommandHandler(IOrderRepository orderRepository, IProductRepository productRepository, ICatalogRepository catalogRepository)
+        public CreateOrderCommandHandler(IOrderRepository orderRepository, 
+            IProductRepository productRepository, 
+            ICatalogRepository catalogRepository, 
+            IEventBus eventBus)
         {
             this.orderRepository = orderRepository;
             this.productRepository = productRepository;
             this.catalogRepository = catalogRepository;
+            this.eventBus = eventBus;
         }
 
         public async Task<Unit> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
@@ -29,7 +36,7 @@ namespace OMS.Application.UseCases.Order.Commands.CreateOrder
             foreach (var orderArticle in request.OrderArticles)
             {
                 var price = catalogProductPrices[orderArticle.ProductId];
-                if (orderArticle.Quantity < productStock[orderArticle.ProductId])
+                if (orderArticle.Quantity > productStock[orderArticle.ProductId])
                 {
                     throw new Exception($"Not enough stock for product id {orderArticle.ProductId}");
                 }
@@ -38,6 +45,11 @@ namespace OMS.Application.UseCases.Order.Commands.CreateOrder
             }
 
             await orderRepository.Add(order);
+            await eventBus.Publish(new OrderCreatedEvent
+            {
+                CustomerId = request.CustomerId,
+                OrderId = order.OrderId
+            });
 
             return Unit.Value;
         }
