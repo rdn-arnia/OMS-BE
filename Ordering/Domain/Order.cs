@@ -8,13 +8,9 @@ namespace Ordering.Domain
     {
         private List<OrderLine> _orderLines;
 
-        public Order(string customerId, List<OrderLine> orderLines)
+        private Order()
         {
-            _orderLines = orderLines;
-            CustomerId = customerId;
-
-            OrderId = Guid.NewGuid().ToString("n");
-            OrderStatus = OrderStatus.ReadyToBeFulfilled;
+            _orderLines = new List<OrderLine>();
         }
 
         public string OrderId { get; private set; }

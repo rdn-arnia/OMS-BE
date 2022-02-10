@@ -29,27 +29,7 @@ namespace OMS.Domain.Aggregates.OrderAggregate
 
         public void AddOrderLine(string productId, int quantity, double price)
         {
-            _orderLines.Add(new OrderLine(productId, quantity, price));
-        }
-
-        public void ProcessPayment()
-        {
-            if (OrderStatus != OrderStatus.ReadyToBeFulfilled)
-            {
-                throw new Exception("Order status has to be ReadyToBeFulfilled");
-            }
-
-            OrderStatus = OrderStatus.PaymentProceesed;
-        }
-
-        public void Ship()
-        {
-            if (OrderStatus != OrderStatus.PaymentProceesed)
-            {
-                throw new Exception("Order status has to be PaymentProceesed");
-            }
-
-            OrderStatus = OrderStatus.Fulfilled;
+            _orderLines.Add(new OrderLine(OrderId, productId, quantity, price));
         }
     }
 }
