@@ -1,8 +1,7 @@
-using Microsoft.Extensions.Azure;
+using Azure.Identity;
 using OMS.API.Filters;
 using OMS.Application;
 using OMS.Infrastructure;
-using Azure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,12 +23,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
-//builder.Services.AddAzureClients(clientBuilder =>
-//{
-//    clientBuilder.AddBlobServiceClient(builder.Configuration["AzureWebJobsStorage:blob"], preferMsi: true);
-//    clientBuilder.AddQueueServiceClient(builder.Configuration["AzureWebJobsStorage:queue"], preferMsi: true);
-//});
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: "AllowAngularDev",
@@ -40,11 +33,6 @@ builder.Services.AddCors(options =>
                 .AllowAnyOrigin()
                 .AllowAnyHeader();
         });
-});
-builder.Services.AddAzureClients(clientBuilder =>
-{
-    clientBuilder.AddBlobServiceClient(builder.Configuration["AzureWebJobsStorage:blob"], preferMsi: true);
-    clientBuilder.AddQueueServiceClient(builder.Configuration["AzureWebJobsStorage:queue"], preferMsi: true);
 });
 
 var app = builder.Build();
