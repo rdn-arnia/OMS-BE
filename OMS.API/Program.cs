@@ -1,4 +1,6 @@
 using Azure.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Identity.Web;
 using OMS.API.Filters;
 using OMS.Application;
 using OMS.Infrastructure;
@@ -12,6 +14,8 @@ if (builder.Environment.IsProduction())
 }
 
 // Add services to the container.
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddMicrosoftIdentityWebApi(builder.Configuration, "AzureAD");
 
 builder.Services.AddControllers(
     options => options.Filters.Add<ApiExceptionFilterAttribute>()
@@ -46,6 +50,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("AllowAngularDev");
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

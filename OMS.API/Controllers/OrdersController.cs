@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Web.Resource;
 using OMS.Application.UseCases.Order.Commands.CreateOrder;
 
 namespace OMS.API.Controllers
@@ -18,6 +19,8 @@ namespace OMS.API.Controllers
         [HttpPost]
         public async Task<IActionResult> PlaceOrder(CreateOrderCommand createOrderCommand)
         {
+            HttpContext.VerifyUserHasAnyAcceptedScope("Order");
+
             await mediator.Send(createOrderCommand);
 
             return Ok();

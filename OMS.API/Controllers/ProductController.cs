@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Web.Resource;
 using OMS.Application.UseCases.Product.Queries.GetProductById;
 
 namespace OMS.API.Controllers
@@ -18,6 +19,8 @@ namespace OMS.API.Controllers
         [HttpGet("{productId}")]
         public async Task<IActionResult> GetById(string productId)
         {
+            HttpContext.VerifyUserHasAnyAcceptedScope("Order");
+
             var result = await mediator.Send(new GetProductByIdQuery { ProductId = productId });
 
             return Ok(result);
